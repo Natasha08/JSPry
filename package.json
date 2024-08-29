@@ -1,0 +1,12 @@
+{
+  "name": "ijs-repl",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive JavaScript REPL",
+  "main": "ijs.js",
+  "bin": {
+    "ijs": "./ijs.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
