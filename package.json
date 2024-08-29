@@ -1,6 +1,6 @@
 {
   "name": "@natasha08/pry.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Interactive JavaScript REPL",
   "keywords": ["Javascript", "REPL", "pry", "debugger"],
   "author": "Natasha Osborne",
