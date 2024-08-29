@@ -37,7 +37,7 @@ const persistentContext = loadPersistentData();
 
 // Start the REPL and provide the loaded context
 const myRepl = repl.start({
-  prompt: 'ijs> ',
+  prompt: 'pryjs> ',
   useGlobal: true
 });
 
