@@ -1,8 +1,8 @@
-const fs = require('fs');
-const dataFilePath = require('./data_file_path');
+import fs from 'fs';
+// @ts-ignore
+import dataFilePath from "./data_file_path";
 
-// Function to load the persisted data
-function loadPersistentData() {
+export default function loadPersistentData() {
   if (fs.existsSync(dataFilePath)) {
     const data = fs.readFileSync(dataFilePath, 'utf-8');
     return JSON.parse(data, (key, value) => {
@@ -14,5 +14,3 @@ function loadPersistentData() {
   }
   return {};
 }
-
-module.exports = loadPersistentData;
