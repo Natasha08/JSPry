@@ -10,9 +10,14 @@
   ],
   "author": "Natasha Osborne",
   "license": "MIT",
-  "main": "pry.js",
+  "main": "pry.ts",
   "bin": {
-    "jspry": "./pry.js"
+    "jspry": "./dist/pry.js"
+  },
+
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/pry.js"
   },
   "devDependencies": {
     "@types/node": "^22.5.1",
