@@ -10,10 +10,6 @@ class CommandsService {
         this.create = () => {
             commands_1.default.forEach((ReplCommand) => {
                 const command = new ReplCommand(this.repl);
-                this.repl.eval = function (cmd, context, filename, callback) {
-                    console.log('REPL Context:', context);
-                    callback(null, eval(cmd));
-                };
                 this.repl.defineCommand(command.name, {
                     help: command.help,
                     action: command.action.bind(this)

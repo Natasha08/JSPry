@@ -1,5 +1,5 @@
 import Commands from '../commands';
-import Command, {Repl, Context} from '../commands/command';
+import Command, {Repl} from '../commands/command';
 
 export default class CommandsService {
   repl: Repl
@@ -14,11 +14,6 @@ export default class CommandsService {
   create = () => {
     Commands.forEach((ReplCommand: typeof Command) => {
       const command = new ReplCommand(this.repl);
-
-      this.repl.eval = function(cmd: string, context: Context, filename: string, callback: Function) {
-        console.log('REPL Context:', context);
-        callback(null, eval(cmd));
-      };
 
       this.repl.defineCommand(command.name, {
         help: command.help,
