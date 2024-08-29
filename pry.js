@@ -39,7 +39,7 @@ myRepl.defineCommand('exit', {
   }
 });
 
-myRepl.defineCommand('exit --s', {
+myRepl.defineCommand('saveexit', {
   help: 'Save the current context and exit the REPL',
   action() {
     savePersistentData(this.context);
