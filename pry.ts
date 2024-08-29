@@ -1,71 +1,28 @@
 #!/usr/bin/env node
 
 const repl = require('repl');
-
-const loadPersistentData = require('./data/load_persistent_data');
-const savePersistentData = require('./data/save_persistent_data');
-const safeAssign = require('./data/safe_assign');
-const CommandsService = require('./services/commands');
+import loadPersistentData from './data/load_persistent_data';
+// @ts-ignore
+import safeAssign from './data/safe_assign';
+import CommandsService from './services/commands';
 
 const PROMPT = 'jspry> ';
 
-class MyRepl {
-  repl: Repl
-  commandService: Object
+const myRepl = repl.start({prompt: PROMPT, useGlobal: false});
+const commandService = new CommandsService(myRepl);
 
-  constructor() {
-    this.repl = repl.start({
-      prompt: PROMPT,
-      useGlobal: true
-    });
-
-    console.log("CREATING SERVICES...");
-    this.commandService = new CommandsService(this.repl).create();
-  }
+function loadContext() {
+  safeAssign(myRepl.context, loadPersistentData());
+  myRepl.displayPrompt();
 }
 
-const myRepl = new MyRepl();
-// Load persisted data into a global object
-const persistentContext = loadPersistentData();
+if (commandService.complete) {
+  console.log("SERVICES READY");
 
-// Start the REPL and provide the loaded context
-// const myRepl = repl.start({
-//   prompt: 'jspry> ',
-//   useGlobal: true
-// });
+  loadContext();
+} else {
+  console.log("Failed to initiate REPL...");
+  console.log("Shutting Down...");
 
-// Merge the loaded context into the REPL's context
-// safeAssign(myRepl.context, persistentContext);
-
-// Custom commands
-// myRepl.defineCommand('exit', {
-//   help: 'Exit the REPL',
-//   action() {
-//     console.log('Exiting...');
-//     this.close();
-//   }
-// });
-
-// myRepl.defineCommand('saveexit', {
-//   help: 'Save the current context and exit the REPL',
-//   action() {
-//     savePersistentData(this.context);
-//     console.log('Session saved. Exiting...');
-//     this.close();
-//   }
-// });
-
-// myRepl.defineCommand('clear', {
-//   help: 'Clear the REPL context',
-//   action() {
-//     // Loop through all properties of the REPL context
-//     Object.keys(this.context).forEach((key) => {
-//       if (this.context.hasOwnProperty(key)) {
-//         delete this.context[key];
-//       }
-//     });
-
-//     console.log('Context cleared');
-//     this.displayPrompt();
-//   }
-// });
+  myRepl.close();
+}
