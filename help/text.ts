@@ -20,4 +20,4 @@ const helpText = `
     pryjs --help        Show this help message
 `;
 
-module.exports = helpText;
+export default helpText;
