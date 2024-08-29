@@ -7,6 +7,35 @@ const repl = require('repl');
 // Path to the file where we'll store the variables
 const dataFilePath = path.join(__dirname, 'replData.json');
 
+// Define help information
+const helpText = `
+pryjs - Interactive JavaScript REPL
+
+Usage:
+  pryjs [options]
+
+Options:
+  --help              Show help information
+  .exit               Exit the REPL
+  .exit --s           Save the current context and exit the REPL
+  .clear              Clear the REPL context
+
+Commands:
+  .exit               Exit the REPL
+  .clear              Clear the REPL context and all variables
+
+Examples:
+  pryjs               Start the REPL
+  pryjs --help        Show this help message
+`;
+
+
+// Check if the user passed the --help flag
+if (process.argv.includes('--help')) {
+  console.log(helpText);
+  process.exit(0);
+}
+
 // Function to load the persisted data
 function loadPersistentData() {
   if (fs.existsSync(dataFilePath)) {
@@ -77,10 +106,25 @@ myRepl.defineCommand('exit', {
   }
 });
 
+myRepl.defineCommand('exit --s', {
+  help: 'Save the current context and exit the REPL',
+  action() {
+    savePersistentData(this.context);
+    console.log('Session saved. Exiting...');
+    this.close();
+  }
+});
+
 myRepl.defineCommand('clear', {
   help: 'Clear the REPL context',
   action() {
-    this.clearBufferedCommand();
+    // Loop through all properties of the REPL context
+    Object.keys(this.context).forEach((key) => {
+      if (this.context.hasOwnProperty(key)) {
+        delete this.context[key];
+      }
+    });
+
     console.log('Context cleared');
     this.displayPrompt();
   }
