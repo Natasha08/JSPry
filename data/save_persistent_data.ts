@@ -1,8 +1,9 @@
-const fs = require('fs');
-const dataFilePath = require('./data_file_path');
+import fs from 'fs';
+// @ts-ignore
+import dataFilePath from './data_file_path.js';
+import {Context} from '../commands/command';
 
-// Function to save the current context to the file
-function savePersistentData(context) {
+const savePersistentData = (context: Context) => {
   const cache = new Set();
   const data = JSON.stringify(context, (key, value) => {
     if (typeof value === 'object' && value !== null) {
@@ -15,6 +16,6 @@ function savePersistentData(context) {
   }, 2);
   fs.writeFileSync(dataFilePath, data);
   cache.clear();
-}
+};
 
-module.exports = savePersistentData;
+export default savePersistentData;
