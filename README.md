@@ -1,4 +1,4 @@
-## Pry.js
+## JSPry
 An Interactive Javascript REPL
 
 ### Package installation
@@ -12,13 +12,13 @@ npm i -g @natasha08/pry.js
 Open a new REPL Session
 
 ```
-pryjs
+jspry
 ```
 
 Help options
 
 ```
-pryjs --help
+jspry --help
 ```
 
 #### REPL Commands

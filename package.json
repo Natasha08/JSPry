@@ -2,11 +2,16 @@
   "name": "@natasha08/pry.js",
   "version": "0.1.1",
   "description": "Interactive JavaScript REPL",
-  "keywords": ["Javascript", "REPL", "pry", "debugger"],
+  "keywords": [
+    "Javascript",
+    "REPL",
+    "pry",
+    "debugger"
+  ],
   "author": "Natasha Osborne",
   "license": "MIT",
   "main": "pry.js",
   "bin": {
-    "pryjs": "./pry.js"
+    "jspry": "./pry.js"
   }
 }

@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
 const repl = require('repl');
 
 const helpText = require('./help/text');
@@ -9,8 +7,6 @@ const loadPersistentData = require('./data/load_persistent_data');
 const savePersistentData = require('./data/save_persistent_data');
 const safeAssign = require('./data/safe_assign');
 
-// Path to the file where we'll store the variables
-const dataFilePath = path.join(__dirname, 'replData.json');
 
 // Check if the user passed the --help flag
 if (process.argv.includes('--help')) {
@@ -23,7 +19,7 @@ const persistentContext = loadPersistentData();
 
 // Start the REPL and provide the loaded context
 const myRepl = repl.start({
-  prompt: 'pryjs> ',
+  prompt: 'jspry> ',
   useGlobal: true
 });
 
