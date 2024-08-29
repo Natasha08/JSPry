@@ -23,13 +23,18 @@ function loadPersistentData() {
 
 // Function to save the current context to the file
 function savePersistentData(context) {
+  const cache = new Set();
   const data = JSON.stringify(context, (key, value) => {
-    if (typeof value === 'function') {
-      return value.toString();
+    if (typeof value === 'object' && value !== null) {
+      if (cache.has(value)) {
+        return; // Circular reference found, discard key
+      }
+      cache.add(value);
     }
     return value;
   }, 2);
   fs.writeFileSync(dataFilePath, data);
+  cache.clear();
 }
 
 // Load persisted data into a global object
@@ -41,8 +46,20 @@ const myRepl = repl.start({
   useGlobal: true
 });
 
+function safeAssign(target, source) {
+  for (let key in source) {
+    if (source.hasOwnProperty(key)) {
+      try {
+        target[key] = source[key];
+      } catch (error) {
+        console.warn(`Skipping ${key}:`, error.message);
+      }
+    }
+  }
+}
+
 // Merge the loaded context into the REPL's context
-Object.assign(myRepl.context, persistentContext);
+safeAssign(myRepl.context, persistentContext);
 
 // Save the context when the REPL exits
 myRepl.on('exit', () => {
