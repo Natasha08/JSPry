@@ -11,6 +11,7 @@ const myRepl = repl.start({ prompt: PROMPT, useGlobal: false });
 const commandService = new commands_1.default(myRepl);
 if (commandService.complete) {
     console.log("SERVICES READY... LOADING PROMPT....");
+    myRepl.displayPrompt();
 }
 else {
     console.log("Failed to initiate REPL...");

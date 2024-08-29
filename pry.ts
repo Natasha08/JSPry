@@ -11,7 +11,7 @@ const commandService = new CommandsService(myRepl);
 
 if (commandService.complete) {
   console.log("SERVICES READY... LOADING PROMPT....");
-
+  myRepl.displayPrompt();
 } else {
   console.log("Failed to initiate REPL...");
   console.log("Shutting Down...");
