@@ -8,7 +8,7 @@ const helpText = `
   Options:
     --help              Show help information
     .exit               Exit the REPL
-    .saveexit          Save the current context and exit the REPL
+    .saveexit           Save the current context and exit the REPL
     .clear              Clear the REPL context
 
   Commands:
