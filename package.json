@@ -13,5 +13,9 @@
   "main": "pry.js",
   "bin": {
     "jspry": "./pry.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.1",
+    "typescript": "^5.5.4"
   }
 }
