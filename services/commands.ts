@@ -1,5 +1,5 @@
-import Commands from '../commands';
-import Command, {Repl} from '../commands/command';
+import Commands from '../repl_commands';
+import Command, {Repl} from '../repl_commands/command';
 
 export default class CommandsService {
   repl: Repl

@@ -1,7 +1,7 @@
 import Command, {Repl} from './command';
 
 export default class Clear extends Command  {
-  name = 'clear'
+  name = 'beer'
   help = 'Clear the REPL context'
 
   action = () => {
