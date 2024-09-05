@@ -1,22 +1,39 @@
 #!/usr/bin/env node
 
 const repl = require('repl');
+// import loadPersistentData from './data/load_persistent_data';
+// @ts-ignore
 import CommandsService from './services/commands';
+import {Repl} from './repl_commands/command';
+import {Context} from './repl_commands/command';
 
 const PROMPT = 'jspry> ';
 
-const myRepl = repl.start({prompt: PROMPT, useGlobal: false});
+class MyRepl {
+  repl: Repl
+  commandService: CommandsService;
 
-const commandService = new CommandsService(myRepl);
+  constructor() {
+    console.log("STARTING REPL...");
+    this.repl = repl.start({prompt: PROMPT, useGlobal: false});
 
-if (commandService.complete) {
-  console.log("SERVICES READY... LOADING PROMPT....");
-  myRepl.displayPrompt();
-} else {
-  console.log("Failed to initiate REPL...");
-  console.log("Shutting Down...");
+    console.log("CREATING SERVICES...");
+    this.commandService = new CommandsService(this.repl);
 
-  myRepl.close();
+    if (this.commandService.complete) {
+      console.log("SERVICES READY", this.repl);
+
+      this.loadContext();
+    } else {
+      console.log("Failed to initiate REPL...");
+      console.log("Shutting Down...");
+      this.repl.close();
+    }
+  }
+
+  loadContext = () => {
+    this.repl.displayPrompt();
+  }
 }
 
-export default myRepl;
+new MyRepl();
