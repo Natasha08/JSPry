@@ -21,7 +21,7 @@ class MyRepl {
     this.commandService = new CommandsService(this.repl);
 
     if (this.commandService.complete) {
-      console.log("SERVICES READY", this.repl);
+      console.log("SERVICES READY");
 
       this.loadContext();
     } else {

@@ -19,7 +19,7 @@ class MyRepl {
         console.log("CREATING SERVICES...");
         this.commandService = new commands_1.default(this.repl);
         if (this.commandService.complete) {
-            console.log("SERVICES READY", this.repl);
+            console.log("SERVICES READY");
             this.loadContext();
         }
         else {
