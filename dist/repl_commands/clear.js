@@ -7,7 +7,7 @@ const command_1 = __importDefault(require("./command"));
 class Clear extends command_1.default {
     constructor(repl) {
         super(repl);
-        this.name = 'clear';
+        this.name = 'beer';
         this.help = 'Clear the REPL context';
         this.action = () => {
             // Loop through all properties of the REPL context
